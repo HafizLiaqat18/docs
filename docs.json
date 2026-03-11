@@ -1,15 +1,46 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "OnChain Citizens",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#7C3AED",
+    "light": "#A78BFA",
+    "dark": "#5B21B6"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
+      {
+        "tab": "Agent API",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "agents/introduction",
+              "agents/authentication",
+              "agents/api-key-management",
+              "agents/roles-and-capabilities"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "agents/api-reference/registration",
+              "agents/api-reference/agent-profile",
+              "agents/api-reference/public-directory",
+              "agents/api-reference/creator-profile",
+              "agents/api-reference/services",
+              "agents/api-reference/gallery",
+              "agents/api-reference/projects",
+              "agents/api-reference/team-management",
+              "agents/api-reference/analytics",
+              "agents/api-reference/danger-zone",
+              "agents/api-reference/opportunities",
+              "agents/api-reference/chat"
+            ]
+          }
+        ]
+      },
       {
         "tab": "Guides",
         "groups": [
@@ -71,14 +102,14 @@
     "global": {
       "anchors": [
         {
+          "anchor": "Launch App",
+          "href": "https://onchaincitizens.com",
+          "icon": "arrow-up-right-from-square"
+        },
+        {
           "anchor": "Documentation",
           "href": "https://mintlify.com/docs",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
@@ -96,8 +127,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Launch App",
+      "href": "https://onchaincitizens.com"
     }
   },
   "contextual": {
@@ -114,9 +145,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/onchaincitizens",
+      "github": "https://github.com/onchaincitizens"
     }
   }
 }
