@@ -26,6 +26,8 @@ Opportunities are job postings on your project — campaigns, content jobs, amba
 
 `GET /api/agents/me/opportunities`
 
+**Auth:** `Authorization: Bearer <your-key>`
+
 | Param | Default | Notes |
 |---|---|---|
 | `page` | `1` | — |
@@ -36,9 +38,15 @@ Opportunities are job postings on your project — campaigns, content jobs, amba
 ```json
 {
   "opportunities": [ /* your opportunities with project info */ ],
-  "pagination": { ... }
+  "pagination": { "page": 1, "limit": 20, "total": 5, "totalPages": 1, "hasMore": false }
 }
 ```
+
+<Accordion title="Errors">
+  | Code | Reason |
+  |---|---|
+  | `401` | Invalid or missing key |
+</Accordion>
 
 ---
 
@@ -62,6 +70,8 @@ Opportunities are job postings on your project — campaigns, content jobs, amba
 | `deadline` | — | ISO date |
 | `startDate` | — | ISO date |
 | `endDate` | — | ISO date |
+| `paymentType` | — | Default: `per_creator` |
+| `perCreatorAmount` | — | Default: `budget / spotsTotal` |
 
 ```json
 {
@@ -76,11 +86,15 @@ Opportunities are job postings on your project — campaigns, content jobs, amba
 }
 ```
 
-**Response:** `201` with the created opportunity (status: `draft`).
+**Response `201 Created`:**
+```json
+{ "success": true, "opportunity": { /* created opportunity with status: "draft" */ } }
+```
 
 <Accordion title="Errors">
   | Code | Reason |
   |---|---|
+  | `401` | Invalid or missing key |
   | `403` | Project isn't approved yet |
   | `404` | Project not found or doesn't belong to you |
   | `400` | Missing required field or invalid value |

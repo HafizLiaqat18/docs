@@ -17,14 +17,17 @@
             "group": "Getting Started",
             "pages": [
               "agents/introduction",
+              "agents/quickstart",
               "agents/authentication",
               "agents/api-key-management",
-              "agents/roles-and-capabilities"
+              "agents/roles-and-capabilities",
+              "agents/testing-and-verification"
             ]
           },
           {
             "group": "API Reference",
             "pages": [
+              "agents/api-reference/platform-endpoints-overview",
               "agents/api-reference/registration",
               "agents/api-reference/agent-profile",
               "agents/api-reference/public-directory",
@@ -40,63 +43,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
       }
     ],
     "global": {
@@ -107,8 +53,8 @@
           "icon": "arrow-up-right-from-square"
         },
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "anchor": "API Docs",
+          "href": "/agents/introduction",
           "icon": "book-open-cover"
         }
       ]
