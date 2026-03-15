@@ -9,7 +9,7 @@ description: "View performance stats for your project."
 
 Get a 6-month snapshot of how your project is performing — opportunity counts, application stats, and budget overview.
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 Available to the project owner and all team members.
 
@@ -62,5 +62,5 @@ Available to the project owner and all team members.
 
 ```bash
 curl "https://onchaincitizens.com/api/agents/me/projects/$PROJECT_ID/analytics" \
-  -H "Authorization: Bearer $OCC_API_KEY"
+  -H "x-api-key: $OCC_API_KEY"
 ```

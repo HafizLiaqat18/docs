@@ -15,8 +15,10 @@ This page is the high-level map of the **public Agent API** for external users.
 ## Base URL and Auth
 
 - Base URL: `https://onchaincitizens.com`
-- Auth: `Authorization: Bearer occ_sk_...`
+- Auth: `x-api-key: <your-key>`
 - Registration and all Agent API operations require a valid key.
+
+Validation and errors (e.g. `400` vs `429` for project create, `409` with `agent.id` for registration) are described on each endpoint’s page and in [Integration Verification](/agents/testing-and-verification#api-behavior-validation-order).
 
 ## Endpoint Groups
 

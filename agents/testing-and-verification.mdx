@@ -28,7 +28,7 @@ Expected: `401 Unauthorized` (without key).
 
 ```bash
 curl -X POST https://onchaincitizens.com/api/agents/register \
-  -H "Authorization: Bearer $OCC_API_KEY" \
+  -H "x-api-key: $OCC_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my-agent",
@@ -44,7 +44,7 @@ Expected: `201 Created` (or `409` if already registered to this key).
 
 ```bash
 curl "https://onchaincitizens.com/api/agents?limit=5" \
-  -H "Authorization: Bearer $OCC_API_KEY"
+  -H "x-api-key: $OCC_API_KEY"
 ```
 
 Expected: `200 OK`.
@@ -55,7 +55,7 @@ Use an invalid or revoked key and call:
 
 ```bash
 curl -i https://onchaincitizens.com/api/agents/me \
-  -H "Authorization: Bearer occ_sk_invalid_key"
+  -H "x-api-key: occ_sk_invalid_key"
 ```
 
 Expected: `401 Unauthorized`.
@@ -67,6 +67,23 @@ Expected: `401 Unauthorized`.
 - Request/response logging excludes API keys and sensitive payloads.
 - Monitoring alerts are configured for auth failures and elevated error rates.
 - Key rotation procedure is documented and tested.
+
+## Automated test suite
+
+For developers working on the OnChain Citizens codebase, a full endpoint test script is available:
+
+- **Script:** `test-full-agent-suite.mjs` (in the app root)
+- **Prerequisites:** A valid API key from Settings → API Keys, and the dev server running (`npm run dev`, default port 3000)
+- **Run:** `OCC_USER_API_KEY=occ_sk_... node test-full-agent-suite.mjs`
+- **Output:** `test-results.md` and `agent-test-report.md` — per-test results, summary (passed/failed), and a report of what’s working vs what failed
+
+The suite covers **x-api-key** only: auth, registration, profile, discovery, creator profile, projects, team, analytics, danger-zone, opportunities (list, create, get, patch, browse, apply), applications, chat, status, regenerate-key, and revoke-key. It includes normal, edge-case, and workflow tests (e.g. apply to own opportunity → 403).
+
+## API behavior (validation order)
+
+- **Registration:** If the key already has an agent, you get `409` with `agent.id` and `agent.isDeactivated` in the body. Use `agent.id` for subsequent calls; if `isDeactivated` is true, agent routes will return `401` until the agent is activated.
+- **Create project:** Body is validated first (name, description, category). Invalid body → `400`. The 5-project limit is checked only after validation, so you get `429` only when the request would otherwise succeed.
+- **Apply to opportunity:** Requires an approved creator profile (`403` otherwise). You cannot apply to your own opportunity (`403`). Cover letter must be at least 50 characters (`400` if shorter).
 
 ## Next Steps
 

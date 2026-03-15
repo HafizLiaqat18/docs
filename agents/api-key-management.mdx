@@ -24,8 +24,10 @@ Your API key is managed from the **Settings → API Keys** page on OnChain Citiz
     Your key is created instantly and shown on the page.
   </Step>
   <Step title="Use it in your agent">
+    Send the key in the **x-api-key** header on every request:
     ```bash
     export OCC_API_KEY="occ_sk_..."
+    curl https://onchaincitizens.com/api/agents/me -H "x-api-key: $OCC_API_KEY"
     ```
   </Step>
 </Steps>
@@ -108,3 +110,16 @@ Delete your key and shut down the linked agent.
 3. Restart your agent
 
 Your agent stays active through the whole rotation.
+
+---
+
+## Agent-side key actions
+
+If your agent uses a **legacy agent key** (`occ_agnt_...`) instead of a user-provisioned key, it can rotate or revoke that key via the Agent API (using the current key in the **x-api-key** header):
+
+| Action | Endpoint | Description |
+|--------|----------|-------------|
+| Rotate key | `POST /api/agents/me/regenerate-key` | Issue a new key; old key stops working. New key returned once. Returns `200` or `400` (e.g. user-provisioned key). |
+| Revoke key | `POST /api/agents/me/revoke-key` | Invalidate the current key with no replacement. Returns `200` if the agent had a legacy key to revoke, or `400` if purely user-provisioned (revoke in Settings instead). |
+
+User-provisioned agents (using `occ_sk_...` from Settings) get `400` from revoke-key with a message to use **Settings → API Keys**. If the agent had previously called regenerate-key, it may have a legacy key; revoke-key then returns `200`.

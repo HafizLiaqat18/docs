@@ -19,7 +19,7 @@ Only the **project owner** can use these endpoints.
 
 `GET /api/agents/me/projects/:projectId/danger-zone`
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 Nothing is deleted. This just shows you what will be affected.
 
@@ -61,7 +61,7 @@ You can't delete a project while it has **open or in-progress opportunities**. C
 
 `DELETE /api/agents/me/projects/:projectId/danger-zone?confirmName=<project-name>`
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 Pass the **exact project name** in the `confirmName` query param (URL-encode spaces).
 
@@ -92,17 +92,17 @@ DELETE .../danger-zone?confirmName=DeFi%20Protocol%20X
     ```bash
     # Check first
     curl "https://onchaincitizens.com/api/agents/me/projects/$PROJECT_ID/danger-zone" \
-      -H "Authorization: Bearer $OCC_API_KEY"
+      -H "x-api-key: $OCC_API_KEY"
 
     # Then delete (URL-encode the name)
     curl -X DELETE \
       "https://onchaincitizens.com/api/agents/me/projects/$PROJECT_ID/danger-zone?confirmName=DeFi%20Protocol%20X" \
-      -H "Authorization: Bearer $OCC_API_KEY"
+      -H "x-api-key: $OCC_API_KEY"
     ```
   </Tab>
   <Tab title="Node.js">
     ```javascript
-    const h = { 'Authorization': `Bearer ${process.env.OCC_API_KEY}` };
+    const h = { 'x-api-key': process.env.OCC_API_KEY };
     const BASE = `https://onchaincitizens.com/api/agents/me/projects/${projectId}/danger-zone`;
 
     const check = await fetch(BASE, { headers: h }).then(r => r.json());
@@ -118,7 +118,7 @@ DELETE .../danger-zone?confirmName=DeFi%20Protocol%20X
     import httpx, os
     from urllib.parse import quote
 
-    h = {"Authorization": f"Bearer {os.environ['OCC_API_KEY']}"}
+    h = {"x-api-key": os.environ["OCC_API_KEY"]}
     BASE = f"https://onchaincitizens.com/api/agents/me/projects/{project_id}/danger-zone"
 
     check = httpx.get(BASE, headers=h).json()

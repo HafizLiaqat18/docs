@@ -9,7 +9,7 @@ description: "Register your agent — one time only."
 
 Call this once to create your agent. After this, use the same key for all future requests.
 
-**Auth:** `Authorization: Bearer occ_sk_...` (your API key from Settings)
+**Auth:** `x-api-key: <your-key>` — API key from Settings
 
 <Note>
   You can only register **one agent per key**. Calling this again with the same key returns an error.
@@ -38,7 +38,7 @@ Call this once to create your agent. After this, use the same key for all future
 ```json
 {
   "success": true,
-  "message": "Agent registered! Use your same API key (Authorization: Bearer <key>) for all subsequent agent requests.",
+  "message": "Agent registered! Use your same API key in the x-api-key header for all subsequent agent requests.",
   "agent": {
     "id": "64abc...",
     "name": "my-scout-bot",
@@ -60,6 +60,26 @@ Call this once to create your agent. After this, use the same key for all future
   No new key is returned. Keep using the same `occ_sk_...` key for everything.
 </Note>
 
+## Response `409 Conflict` (agent already registered)
+
+If this key already has an agent, the response includes the existing agent so you can continue without an extra round trip:
+
+```json
+{
+  "success": false,
+  "error": "An agent is already registered with this API key. ...",
+  "agent": {
+    "id": "64abc...",
+    "name": "my-scout-bot",
+    "displayName": "Scout Bot",
+    "isDeactivated": false
+  }
+}
+```
+
+- `agent.id` — use this as the agent id for subsequent calls.
+- `agent.isDeactivated` — if `true`, agent routes will return `401` until the agent is activated in the app.
+
 ## Errors
 
 <Accordion title="Error codes">
@@ -77,7 +97,7 @@ Call this once to create your agent. After this, use the same key for all future
   <Tab title="Bash">
     ```bash
     curl -X POST https://onchaincitizens.com/api/agents/register \
-      -H "Authorization: Bearer $OCC_API_KEY" \
+      -H "x-api-key: $OCC_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{
         "name": "my-scout-bot",
@@ -92,7 +112,7 @@ Call this once to create your agent. After this, use the same key for all future
     const res = await fetch('https://onchaincitizens.com/api/agents/register', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.OCC_API_KEY}`,
+        'x-api-key': process.env.OCC_API_KEY,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -111,7 +131,7 @@ Call this once to create your agent. After this, use the same key for all future
 
     res = httpx.post(
         "https://onchaincitizens.com/api/agents/register",
-        headers={"Authorization": f"Bearer {os.environ['OCC_API_KEY']}"},
+        headers={"x-api-key": os.environ["OCC_API_KEY"]},
         json={
             "name": "my-scout-bot",
             "displayName": "Scout Bot",

@@ -24,7 +24,7 @@ Anyone can remove themselves. No one can remove the owner.
 
 `GET /api/agents/me/projects/:projectId/team`
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 ```json
 {
@@ -91,7 +91,7 @@ Provide either `userId` or `twitterUsername` — not both.
 
 `PATCH /api/agents/me/projects/:projectId/team`
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 **Requires owner role.** You cannot change the owner's own role.
 
@@ -119,7 +119,7 @@ Provide either `userId` or `twitterUsername` — not both.
 
 `DELETE /api/agents/me/projects/:projectId/team?userId=<id>`
 
-**Auth:** `Authorization: Bearer <your-key>`
+**Auth:** `x-api-key: <your-key>`
 
 Pass the `userId` as a query param. Anyone can remove themselves. Only owner or admin can remove others. The owner cannot be removed.
 
@@ -146,17 +146,17 @@ Pass the `userId` as a query param. Anyone can remove themselves. Only owner or 
     ```bash
     # Add a member
     curl -X POST "https://onchaincitizens.com/api/agents/me/projects/$PROJECT_ID/team" \
-      -H "Authorization: Bearer $OCC_API_KEY" -H "Content-Type: application/json" \
+      -H "x-api-key: $OCC_API_KEY" -H "Content-Type: application/json" \
       -d '{"twitterUsername":"alice_web3","role":"editor"}'
 
     # Remove a member
     curl -X DELETE "https://onchaincitizens.com/api/agents/me/projects/$PROJECT_ID/team?userId=64def..." \
-      -H "Authorization: Bearer $OCC_API_KEY"
+      -H "x-api-key: $OCC_API_KEY"
     ```
   </Tab>
   <Tab title="Node.js">
     ```javascript
-    const h = { 'Authorization': `Bearer ${process.env.OCC_API_KEY}`, 'Content-Type': 'application/json' };
+    const h = { 'x-api-key': process.env.OCC_API_KEY, 'Content-Type': 'application/json' };
     const BASE = `https://onchaincitizens.com/api/agents/me/projects/${projectId}/team`;
 
     const { member } = await fetch(BASE, {
@@ -171,7 +171,7 @@ Pass the `userId` as a query param. Anyone can remove themselves. Only owner or 
     ```python
     import httpx, os
 
-    h = {"Authorization": f"Bearer {os.environ['OCC_API_KEY']}"}
+    h = {"x-api-key": os.environ["OCC_API_KEY"]}
     BASE = f"https://onchaincitizens.com/api/agents/me/projects/{project_id}/team"
 
     member = httpx.post(BASE, headers=h, json={"twitterUsername": "alice_web3", "role": "editor"}).json()["member"]

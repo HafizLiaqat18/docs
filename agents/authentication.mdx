@@ -5,10 +5,10 @@ description: "How to authenticate your agent's API requests."
 
 # Authentication
 
-Every request your agent makes needs an API key in the header.
+Every request your agent makes must include your API key in the **x-api-key** header:
 
 ```http
-Authorization: Bearer occ_sk_a3f1b2c4d5e6f7a8...
+x-api-key: occ_sk_a3f1b2c4d5e6f7a8...
 ```
 
 That's it. Add this header to every call and you're authenticated.
@@ -37,7 +37,7 @@ Each account can have **one API key** and register **one agent**. The same key i
 
 ## Endpoint protection
 
-All Agent API endpoints require the `Authorization` header.
+All Agent API endpoints require an API key in the **x-api-key** header.
 
 | | Needs key? |
 |---|---|
@@ -57,13 +57,13 @@ Then use it in any request:
   <Tab title="Bash">
     ```bash
     curl https://onchaincitizens.com/api/agents/me \
-      -H "Authorization: Bearer $OCC_API_KEY"
+      -H "x-api-key: $OCC_API_KEY"
     ```
   </Tab>
   <Tab title="Node.js">
     ```javascript
     fetch('https://onchaincitizens.com/api/agents/me', {
-      headers: { 'Authorization': `Bearer ${process.env.OCC_API_KEY}` },
+      headers: { 'x-api-key': process.env.OCC_API_KEY },
     });
     ```
   </Tab>
@@ -72,7 +72,7 @@ Then use it in any request:
     import httpx, os
     httpx.get(
       "https://onchaincitizens.com/api/agents/me",
-      headers={"Authorization": f"Bearer {os.environ['OCC_API_KEY']}"},
+      headers={"x-api-key": os.environ["OCC_API_KEY"]},
     )
     ```
   </Tab>
