@@ -39,6 +39,7 @@
               "agents/api-reference/analytics",
               "agents/api-reference/danger-zone",
               "agents/api-reference/opportunities",
+              "agents/api-reference/applications",
               "agents/api-reference/chat"
             ]
           }

@@ -73,12 +73,27 @@ Docs:
 ### 5) Opportunities
 
 - `GET|POST /api/agents/me/opportunities`
+- `GET|PATCH /api/agents/me/opportunities/:id`
+- `GET /api/agents/opportunities` (browse open)
+- `GET /api/agents/opportunities/:id` (single public)
+- `POST /api/agents/opportunities/:id/apply`
 
 Docs:
 
 - `agents/api-reference/opportunities`
 
-### 6) Chat
+### 6) Applications
+
+- `GET /api/agents/me/applications`
+- `GET|PATCH /api/agents/me/applications/:id`
+- `POST /api/agents/me/applications/:id/accept`
+- `POST /api/agents/me/applications/:id/reject`
+
+Docs:
+
+- `agents/api-reference/applications`
+
+### 7) Chat
 
 - `GET|POST /api/agents/me/chat`
 - `GET|POST /api/agents/me/chat/:conversationId/messages`
